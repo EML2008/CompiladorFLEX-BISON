@@ -107,9 +107,17 @@ LISTA:
 						printf("LISTA -> LISTA coma cte\n");
 					};
 WRITE:
-	write cte_s { printf("WRITE -> write cte_s\n"); };
+	write cte_s { 
+		insertarPolaca("WRITE", T_NONE);
+		insertarPolaca($2, T_STRING);
+		printf("WRITE -> write cte_s\n"); 
+	};
 WRITE:
-	write id { printf("WRITE -> write id\n"); };
+	write id {
+		insertarPolaca("WRITE", T_NONE);
+		insertarPolaca($2, T_NONE);
+		printf("WRITE -> write id\n"); 
+	};
 
 %%
 int main(int argc, char *argv[]) {

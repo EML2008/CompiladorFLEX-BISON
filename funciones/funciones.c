@@ -4,7 +4,10 @@ t_polaca polaca[100];
 t_simbolo tablaSimbolos[100];
 
 int pilaPosiciones[100];
-int posActualPila = 0;
+int posActualPilaPosiciones = 0;
+
+char * pilaOperandos[100];
+int posActualPilaOperandos = 0;
 
 int posActualPolaca = 0;
 int posActualTablaSimbolos = 0;
@@ -35,6 +38,10 @@ void mostrarPolaca() {
 	}
 }
 
+int adelantarPosicionEnPolaca() {
+	return posActualPolaca++;
+}
+
 void insertarTablaSimbolos(char * nombre, int tipo, char * dato, char * longitud) {
 	t_simbolo tmp;
 	strcpy(tmp.nombre, nombre);
@@ -53,19 +60,23 @@ void mostrarTablaSimbolos() {
 }
 
 int verTopeDePilaPosiciones() {
-	return posActualPila;
+	return posActualPilaPosiciones;
 }
 
 void apilarPosicion(int pos) {
-	pilaPosiciones[posActualPila++] = pos;
+	pilaPosiciones[posActualPilaPosiciones++] = pos;
 } 
 
 int desapilarPosicion() {
-	return pilaPosiciones[--posActualPila];
+	return pilaPosiciones[--posActualPilaPosiciones];
 }
 
-int adelantarPosicionEnPolaca() {
-	return posActualPolaca++;
+void apilarOperador(char * op) {
+	pilaOperandos[posActualPilaOperandos++] = op;
+} 
+
+char * desapilarOperador() {
+	return pilaOperandos[--posActualPilaOperandos];
 }
 
 void generarAssembler() {
@@ -80,9 +91,8 @@ void generarAssembler() {
 
 void generarInstrucciones(FILE * fp) {
     int i;
-    char * op1;
-    char * op2;
     for (i = 0; i < getPosActualPolaca(); i++) {
+        char * dato = polaca[i].dato;
         
     }
 }

@@ -24,6 +24,9 @@ int verTopeDePilaPosiciones();
 void apilarPosicion(int);
 int desapilarPosicion();
 
+void apilarOperador(char * );
+char * desapilarOperador();
+
 void insertarPolaca(char *, int);
 void insertarPolacaEnPosicion(char *, int , int); 
 int adelantarPosicionEnPolaca();
@@ -33,3 +36,4 @@ void insertarTablaSimbolos(char *, int, char *, char *);
 void mostrarTablaSimbolos();
 
 void generarAssembler();
+void generarInstrucciones(FILE *);
