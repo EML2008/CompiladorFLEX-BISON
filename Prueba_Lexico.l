@@ -4,6 +4,7 @@
 #include <conio.h>
 #include <string.h>
 #include "y.tab.h"
+#include "funciones/funciones.h"
 FILE  *yyin;
 
 %}

@@ -2,7 +2,7 @@ c:\GnuWin32\bin\flex Prueba_Lexico.l
 pause
 c:\GnuWin32\bin\bison -dyv TPFinal2.y
 pause
-c:\MinGW\bin\gcc.exe lex.yy.c y.tab.c -o TPFinal.exe
+c:\MinGW\bin\gcc.exe lex.yy.c y.tab.c funciones/funciones.h funciones/funciones.c -o TPFinal.exe
 pause
 pause
 TPfinal.exe Prueba.txt
