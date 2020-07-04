@@ -1,8 +1,7 @@
 #include "funciones.h"
 
-void generarAssembler() {
-    printf("Se llamo a generar assembler\n");
-}
+t_polaca polaca[100];
+t_simbolo tablaSimbolos[100];
 
 int pilaPosiciones[100];
 int posActualPila = 0;
@@ -10,8 +9,6 @@ int posActualPila = 0;
 int posActualPolaca = 0;
 int posActualTablaSimbolos = 0;
 
-t_polaca polaca[100];
-t_simbolo tablaSimbolos[100];
 
 void insertarPolaca(char * dato, int tipo) {
 	t_polaca tmp;
@@ -69,4 +66,23 @@ int desapilarPosicion() {
 
 int adelantarPosicionEnPolaca() {
 	return posActualPolaca++;
+}
+
+void generarAssembler() {
+    FILE * fp;
+    fp = fopen("Instrucciones.asm", "wt");
+    if (fp == NULL) {
+        exit(1);
+    }
+    generarInstrucciones(fp);
+    fclose(fp);   
+}
+
+void generarInstrucciones(FILE * fp) {
+    int i;
+    char * op1;
+    char * op2;
+    for (i = 0; i < getPosActualPolaca(); i++) {
+        
+    }
 }
