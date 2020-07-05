@@ -206,7 +206,10 @@ int generarInstrucciones() {
                 posicion = atoi(dato);
             } else if(esEscritura) {
                 esEscritura = 0;
-                fprintf(fp, "DisplayInteger %s\n", dato);
+                if(polaca[i].tipoDato == T_CTE_STRING || polaca[i].tipoDato == T_STRING)
+                    fprintf(fp, "DisplayString %s\n", dato);
+                else if(polaca[i].tipoDato == T_CTE_INTEGER || polaca[i].tipoDato == T_INTEGER || polaca[i].tipoDato == T_ID)
+                    fprintf(fp, "DisplayInteger %s\n", dato);
                 fprintf(fp, "newLine 1\n");
             } else if(esLectura) {
                 esLectura = 0;
@@ -257,7 +260,7 @@ int generarFooter() {
 }
 
 int ensamblar() {
-    FILE * fp = fopen("Final.asm", "w");
+    FILE * fp = fopen("./assembler/Final.asm", "w");
     char buffer[100];
     if (fp == NULL)	
 		return 1;

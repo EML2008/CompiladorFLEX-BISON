@@ -120,7 +120,7 @@ WRITE:
 WRITE:
 	write id {
 		insertarPolaca("WRITE", T_NONE);
-		insertarPolaca($2, T_NONE);
+		insertarPolaca($2, T_ID);
 		printf("WRITE -> write id\n"); 
 	};
 
