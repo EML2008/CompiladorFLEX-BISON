@@ -288,6 +288,7 @@ int unirArchivo(FILE * fp, char * nombre, char * buffer){
     while(fgets(buffer, sizeof(buffer), file))
         fprintf(fp, "%s", buffer);
     fclose(file);
+    remove(nombre);
     return 0;
 }
 
