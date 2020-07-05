@@ -10,6 +10,8 @@ int yystopparser = 0;
 int yylineno;
 FILE  *yyin;
 
+char * idPivotContar;
+
 %}
 
 %union {
@@ -64,11 +66,12 @@ ASIG:
 			printf("ASIG -> id asigna CONTAR\n"); 
 		};
 CONTAR:
-	contar para cte { 
-		insertarTablaSimbolos("@PIVOT", T_INTEGER, "?", 0);
+	contar para id {
+		idPivotContar = $3;
+		/*insertarTablaSimbolos("@PIVOT", T_INTEGER, "?", 0);
 		insertarPolaca(indicarNombreConstante($3), T_INTEGER);
 		insertarPolaca("@PIVOT", T_INTEGER);
-		insertarPolaca("=", T_NONE);
+		insertarPolaca("=", T_NONE);*/
 	} pyc ca LISTA cc parc { printf("CONTAR -> contar para cte pyc ca LISTA cc parc\n"); };
 LISTA:
 	cte	{ 
@@ -121,7 +124,7 @@ int yyerror(const char * s) {
 }
 
 void insertarEnPolacaContar() {
-	insertarPolaca("@PIVOT", T_INTEGER);
+	insertarPolaca(idPivotContar, T_INTEGER);
 	insertarPolaca("CMP", T_NONE);
 	insertarPolaca("JNE", T_NONE);
 	apilarPosicion(adelantarPosicionEnPolaca());

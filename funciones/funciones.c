@@ -67,7 +67,7 @@ int adelantarPosicionEnPolaca() {
 }
 
 char * indicarNombreConstante(const char * valor) {
-	char nombre[32] = "_";
+	char nombre[100] = "_";
 	strcat(nombre, valor);
 	return strdup(nombre);
 }
@@ -172,8 +172,8 @@ int generarInstrucciones() {
         if (strcmp(dato, MAS) == 0) {
             op1 = desapilarOperador();
             op2 = desapilarOperador();
-            fprintf(fp, "fld %s\n", op1);
-            fprintf(fp, "fld %s\n", op2);
+            fprintf(fp, "fild %s\n", op1);
+            fprintf(fp, "fild %s\n", op2);
             fprintf(fp, "fadd\n");
             char aux[20];
             pedirAux(aux);
@@ -183,12 +183,12 @@ int generarInstrucciones() {
             op1 = desapilarOperador();
             op2 = desapilarOperador();
             fprintf(fp, "fld %s\n", op2);
-            fprintf(fp, "fstp %s\n", op1);
+            fprintf(fp, "fistp %s\n", op1);
         } else if (strcmp(dato, CMP) == 0) {
             op1 = desapilarOperador();
             op2 = desapilarOperador();
-            fprintf(fp, "fld %s\n", op1);
-            fprintf(fp, "fld %s\n", op2);   
+            fprintf(fp, "fild %s\n", op1);
+            fprintf(fp, "fild %s\n", op2);   
             fprintf(fp, "fcom\n");
             fprintf(fp, "fstsw ax\n");
             fprintf(fp, "sahf\n");
@@ -241,6 +241,12 @@ int generarData() {
             fprintf(fp, "%-32s\tdd\t%s\n", tablaSimbolos[i].nombre, tablaSimbolos[i].dato);
     }
     fprintf(fp, "\n.CODE\n");
+    fprintf(fp, "START:\n");
+    fprintf(fp, "MOV AX,@DATA\n");
+    fprintf(fp, "MOV DS,AX\n");
+    fprintf(fp, "MOV es,ax\n");
+    fprintf(fp, "FINIT\n");
+    fprintf(fp, "FFREE\n\n");
     fclose(fp);
     
     return 0;

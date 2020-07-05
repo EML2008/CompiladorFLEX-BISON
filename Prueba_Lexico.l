@@ -28,7 +28,7 @@ ID			{LETRA}({LETRA}|{DIGITO})*
 ","			{ return coma; }
 "WRITE"     { return write; }
 "READ"      { return read; }
-"CONTAR"    { return contar; }
+"contar"    { return contar; }
 
 {ID} { 
     yylval.str_val = strdup(yytext); 
