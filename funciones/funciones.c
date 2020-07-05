@@ -177,12 +177,12 @@ int generarInstrucciones() {
             fprintf(fp, "fadd\n");
             char aux[20];
             pedirAux(aux);
-            fprintf(fp, "fstp %s\n", aux);
+            fprintf(fp, "fistp %s\n", aux);
             apilarOperador(aux);
         } else if (strcmp(dato, IGUAL) == 0) {
             op1 = desapilarOperador();
             op2 = desapilarOperador();
-            fprintf(fp, "fld %s\n", op2);
+            fprintf(fp, "fild %s\n", op2);
             fprintf(fp, "fistp %s\n", op1);
         } else if (strcmp(dato, CMP) == 0) {
             op1 = desapilarOperador();

@@ -66,13 +66,9 @@ ASIG:
 			printf("ASIG -> id asigna CONTAR\n"); 
 		};
 CONTAR:
-	contar para id {
-		idPivotContar = $3;
-		/*insertarTablaSimbolos("@PIVOT", T_INTEGER, "?", 0);
-		insertarPolaca(indicarNombreConstante($3), T_INTEGER);
-		insertarPolaca("@PIVOT", T_INTEGER);
-		insertarPolaca("=", T_NONE);*/
-	} pyc ca LISTA cc parc { printf("CONTAR -> contar para cte pyc ca LISTA cc parc\n"); };
+	contar para id { idPivotContar = $3; } pyc ca LISTA cc parc { 
+		printf("CONTAR -> contar para cte pyc ca LISTA cc parc\n"); 
+	};
 LISTA:
 	cte	{ 
 			insertarTablaSimbolos("@CANTREP", T_INTEGER, "?", 0);
