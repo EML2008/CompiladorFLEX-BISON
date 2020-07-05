@@ -195,7 +195,7 @@ int generarInstrucciones() {
                 posicion = atoi(dato);
             } else if(esEscritura) {
                 esEscritura = 0;
-                fprintf(fp, "DisplayInteger %s", dato);
+                fprintf(fp, "DisplayInteger %s\n", dato);
                 fprintf(fp, "newLine 1\n");
             } else if(esLectura) {
                 esLectura = 0;
@@ -257,4 +257,3 @@ void pedirAux(char * aux) {
 void pedirEtiqueta() {
     sprintf(etiqueta, "etiqueta%d", numeroEtiqueta++);
 }
-
