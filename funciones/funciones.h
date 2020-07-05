@@ -42,6 +42,8 @@ void insertarPolacaEnPosicion(char *, int , int);
 int adelantarPosicionEnPolaca();
 void mostrarPolaca();
 
+void insertarEnPolacaContar();
+
 void generarIntermedia();
 
 char * indicarNombreConstante(const char *);

@@ -73,42 +73,20 @@ CONTAR:
 LISTA:
 	cte	{ 
 			insertarTablaSimbolos("@CANTREP", T_INTEGER, "?", 0);
-
+			insertarTablaSimbolos(indicarNombreConstante("0"), T_INTEGER, "0", 0);
+			insertarTablaSimbolos(indicarNombreConstante("1"), T_INTEGER, "1", 0);
 			insertarPolaca(indicarNombreConstante("0"), T_INTEGER);
 			insertarPolaca("@CANTREP", T_INTEGER);
 			insertarPolaca("=", T_NONE);
 
 			insertarPolaca(indicarNombreConstante($1), T_INTEGER);
-			insertarPolaca("@PIVOT", T_INTEGER);
-			insertarPolaca("CMP", T_NONE);
-			insertarPolaca("JNE", T_NONE);
-			apilarPosicion(adelantarPosicionEnPolaca());
-			insertarPolaca("@CANTREP", T_INTEGER);
-			insertarPolaca(indicarNombreConstante("1"), T_INTEGER);
-			insertarPolaca("+", T_NONE);
-			insertarPolaca("@CANTREP", T_INTEGER);
-			insertarPolaca("=", T_NONE);
-			char temp[10];
-			insertarPolacaEnPosicion(itoa(getPosActualPolaca(), temp, 10), T_INTEGER, desapilarPosicion());
-			
+			insertarEnPolacaContar();
 			printf("LISTA -> cte\n"); 
 		};
 LISTA:
 	LISTA coma cte	{ 
 						insertarPolaca(indicarNombreConstante($3), T_INTEGER);
-						insertarPolaca("@PIVOT", T_INTEGER);
-						insertarPolaca("CMP", T_NONE);
-						insertarPolaca("JNE", T_NONE);
-						apilarPosicion(adelantarPosicionEnPolaca());
-						insertarPolaca("@CANTREP", T_INTEGER);
-						insertarTablaSimbolos(indicarNombreConstante("1"), T_INTEGER, "1", 0);
-						insertarPolaca(indicarNombreConstante("1"), T_INTEGER);
-						insertarPolaca("+", T_NONE);
-						insertarPolaca("@CANTREP", T_INTEGER);
-						insertarPolaca("=", T_NONE);
-						char temp[10];
-						insertarPolacaEnPosicion(itoa(getPosActualPolaca(), temp, 10), T_INTEGER, desapilarPosicion());
-
+						insertarEnPolacaContar();
 						printf("LISTA -> LISTA coma cte\n");
 					};
 WRITE:
@@ -140,4 +118,18 @@ int yyerror(const char * s) {
     printf("Syntax Error\n");
     printf("Nro. de linea: %d \t %s\n", yylineno, s);
     exit(1);
+}
+
+void insertarEnPolacaContar() {
+	insertarPolaca("@PIVOT", T_INTEGER);
+	insertarPolaca("CMP", T_NONE);
+	insertarPolaca("JNE", T_NONE);
+	apilarPosicion(adelantarPosicionEnPolaca());
+	insertarPolaca("@CANTREP", T_INTEGER);
+	insertarPolaca(indicarNombreConstante("1"), T_INTEGER);
+	insertarPolaca("+", T_NONE);
+	insertarPolaca("@CANTREP", T_INTEGER);
+	insertarPolaca("=", T_NONE);
+	char temp[10];
+	insertarPolacaEnPosicion(itoa(getPosActualPolaca(), temp, 10), T_INTEGER, desapilarPosicion());
 }

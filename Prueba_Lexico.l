@@ -63,7 +63,7 @@ ID			{LETRA}({LETRA}|{DIGITO})*
     
     yylval.str_val = strdup(tmp); 
     printf("TOKEN CTE_S ---> %s (%s)\n", yytext, yylval.str_val);
-    insertarTablaSimbolos(indicarNombreConstante(yylval.str_val), T_CTE_STRING, strdup(yytext), strlen(yytext));
+    insertarTablaSimbolos(indicarNombreConstante(yylval.str_val), T_CTE_STRING, strdup(yytext), strlen(yylval.str_val));
     return cte_s;
 }
 
