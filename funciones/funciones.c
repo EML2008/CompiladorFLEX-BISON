@@ -66,7 +66,17 @@ int adelantarPosicionEnPolaca() {
 	return posActualPolaca++;
 }
 
+char * indicarNombreConstante(const char * valor) {
+	char nombre[32] = "_";
+	strcat(nombre, valor);
+	return strdup(nombre);
+}
+
 void insertarTablaSimbolos(char * nombre, int tipo, char * dato, int longitud) {
+    int i;
+    for (i = 0; i < posActualTablaSimbolos; i++)
+		if (strcmp(tablaSimbolos[i].nombre, nombre) == 0)
+			return;
 	t_simbolo tmp;
 	strcpy(tmp.nombre, nombre);
 	tmp.tipo = tipo;
@@ -154,6 +164,7 @@ int generarInstrucciones() {
     int i;
     for (i = 0; i < getPosActualPolaca(); i++) {
         if (i == posicion) {
+            posicion = -1;
             fprintf(fp, "%s:\n", etiqueta);
         }
 

@@ -44,6 +44,8 @@ void mostrarPolaca();
 
 void generarIntermedia();
 
+char * indicarNombreConstante(const char *);
+
 void insertarTablaSimbolos(char *, int, char *, int);
 void mostrarTablaSimbolos();
 

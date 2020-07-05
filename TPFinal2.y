@@ -66,25 +66,25 @@ ASIG:
 CONTAR:
 	contar para cte { 
 		insertarTablaSimbolos("@PIVOT", T_INTEGER, "?", 0);
-		insertarPolaca($3, T_INTEGER);
+		insertarPolaca(indicarNombreConstante($3), T_INTEGER);
 		insertarPolaca("@PIVOT", T_INTEGER);
 		insertarPolaca("=", T_NONE);
 	} pyc ca LISTA cc parc { printf("CONTAR -> contar para cte pyc ca LISTA cc parc\n"); };
 LISTA:
 	cte	{ 
-			insertarTablaSimbolos("@CANTREP", T_INTEGER, "0", 0);
+			insertarTablaSimbolos("@CANTREP", T_INTEGER, "?", 0);
 
-			insertarPolaca("0", T_INTEGER);
+			insertarPolaca(indicarNombreConstante("0"), T_INTEGER);
 			insertarPolaca("@CANTREP", T_INTEGER);
 			insertarPolaca("=", T_NONE);
 
-			insertarPolaca($1, T_INTEGER);
+			insertarPolaca(indicarNombreConstante($1), T_INTEGER);
 			insertarPolaca("@PIVOT", T_INTEGER);
 			insertarPolaca("CMP", T_NONE);
 			insertarPolaca("JNE", T_NONE);
 			apilarPosicion(adelantarPosicionEnPolaca());
 			insertarPolaca("@CANTREP", T_INTEGER);
-			insertarPolaca("1", T_INTEGER);
+			insertarPolaca(indicarNombreConstante("1"), T_INTEGER);
 			insertarPolaca("+", T_NONE);
 			insertarPolaca("@CANTREP", T_INTEGER);
 			insertarPolaca("=", T_NONE);
@@ -95,13 +95,14 @@ LISTA:
 		};
 LISTA:
 	LISTA coma cte	{ 
-						insertarPolaca($3, T_INTEGER);
+						insertarPolaca(indicarNombreConstante($3), T_INTEGER);
 						insertarPolaca("@PIVOT", T_INTEGER);
 						insertarPolaca("CMP", T_NONE);
 						insertarPolaca("JNE", T_NONE);
 						apilarPosicion(adelantarPosicionEnPolaca());
 						insertarPolaca("@CANTREP", T_INTEGER);
-						insertarPolaca("1", T_INTEGER);
+						insertarTablaSimbolos(indicarNombreConstante("1"), T_INTEGER, "1", 0);
+						insertarPolaca(indicarNombreConstante("1"), T_INTEGER);
 						insertarPolaca("+", T_NONE);
 						insertarPolaca("@CANTREP", T_INTEGER);
 						insertarPolaca("=", T_NONE);
@@ -113,7 +114,7 @@ LISTA:
 WRITE:
 	write cte_s { 
 		insertarPolaca("WRITE", T_NONE);
-		insertarPolaca($2, T_STRING);
+		insertarPolaca(indicarNombreConstante($2), T_STRING);
 		printf("WRITE -> write cte_s\n"); 
 	};
 WRITE:
