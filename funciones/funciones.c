@@ -14,6 +14,12 @@ int posActualTablaSimbolos = 0;
 
 int numeroAuxiliar = 0;
 
+char etiqueta[20];
+int numeroEtiqueta = 1;
+
+int esPosicion = 0;
+int posicion = -1;
+
 void insertarPolaca(char * dato, int tipo) {
 	t_polaca tmp;
 	strcpy(tmp.dato, dato);
@@ -96,8 +102,13 @@ void generarInstrucciones(FILE * fp) {
     printf("Llegue a generarInstrucciones\n");
     int i;
     for (i = 0; i < getPosActualPolaca(); i++) {
+        if (i == posicion) {
+            fprintf(fp, "%s:\n", etiqueta);
+        }
+
         char * dato = polaca[i].dato;
         printf("El tipo de dato es %s\n", dato);
+
         if (strcmp(dato, MAS) == 0) {
             printf("Entre por +\n");
             op1 = desapilarOperador();
@@ -123,10 +134,16 @@ void generarInstrucciones(FILE * fp) {
             fprintf(fp, "fstsw ax\n");
             fprintf(fp, "sahf\n");
         } else if (strcmp(dato, SALTO_POR_DISTINTO) == 0) {
-            
+            pedirEtiqueta();
+            fprintf(fp, "JNE %s\n", etiqueta);
+            esPosicion = 1;
         } else if (strcmp(dato, LEER) == 0) {
         } else if (strcmp(dato, ESCRIBIR) == 0) {
         } else {
+            if(esPosicion) {
+                esPosicion = 0;
+                posicion = atoi(dato);
+            }
             printf("Apilo operador!\n");
             apilarOperador(dato);
         }
@@ -136,5 +153,9 @@ void generarInstrucciones(FILE * fp) {
 void pedirAux(char * aux) {
     sprintf(aux, "@aux%d", numeroAuxiliar++);
     insertarTablaSimbolos(aux, T_INTEGER, "", "");
+}
+
+void pedirEtiqueta() {
+    sprintf(etiqueta, "etiqueta%d", numeroEtiqueta++);
 }
 

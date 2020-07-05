@@ -44,4 +44,7 @@ void mostrarTablaSimbolos();
 
 void generarAssembler();
 void generarInstrucciones(FILE *);
+
 void pedirAux(char *);
+
+void pedirEtiqueta();
