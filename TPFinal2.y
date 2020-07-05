@@ -50,9 +50,13 @@ SENT:
 	WRITE  { printf("SENT -> WRITE\n"); } |
 	ASIG { printf("SENT -> ASIG\n"); };
 READ: 
-	read id { printf("READ -> read id\n"); };
+	read id { 
+		insertarPolaca("READ", T_NONE);
+		insertarPolaca($2, T_NONE);
+		printf("READ -> read id\n"); 
+	};
 ASIG:
-	id asigna CONTAR { 
+	id asigna CONTAR {
 			insertarPolaca($1, T_INTEGER);
 			insertarPolaca("@CANTREP", T_INTEGER);
 			insertarPolaca("=", T_NONE);
