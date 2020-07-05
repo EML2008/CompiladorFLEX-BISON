@@ -20,6 +20,8 @@ int numeroEtiqueta = 1;
 int esPosicion = 0;
 int posicion = -1;
 
+int esEscritura = 0;
+int esLectura = 0;
 void insertarPolaca(char * dato, int tipo) {
 	t_polaca tmp;
 	strcpy(tmp.dato, dato);
@@ -99,7 +101,6 @@ void generarAssembler() {
 void generarInstrucciones(FILE * fp) {
     char * op1;
     char * op2;
-    printf("Llegue a generarInstrucciones\n");
     int i;
     for (i = 0; i < getPosActualPolaca(); i++) {
         if (i == posicion) {
@@ -107,10 +108,7 @@ void generarInstrucciones(FILE * fp) {
         }
 
         char * dato = polaca[i].dato;
-        printf("El tipo de dato es %s\n", dato);
-
         if (strcmp(dato, MAS) == 0) {
-            printf("Entre por +\n");
             op1 = desapilarOperador();
             op2 = desapilarOperador();
             fprintf(fp, "fld %s\n", op1);
@@ -138,13 +136,21 @@ void generarInstrucciones(FILE * fp) {
             fprintf(fp, "JNE %s\n", etiqueta);
             esPosicion = 1;
         } else if (strcmp(dato, LEER) == 0) {
+            esLectura = 1;
         } else if (strcmp(dato, ESCRIBIR) == 0) {
+            esEscritura = 1;
         } else {
             if(esPosicion) {
                 esPosicion = 0;
                 posicion = atoi(dato);
+            } else if(esEscritura) {
+                esEscritura = 0;
+                fprintf(fp, "DisplayInteger %s", dato);
+                fprintf(fp, "newLine 1\n");
+            } else if(esLectura) {
+                esLectura = 0;
+                fprintf(fp, "GetInteger %s\n", dato);
             }
-            printf("Apilo operador!\n");
             apilarOperador(dato);
         }
     }
