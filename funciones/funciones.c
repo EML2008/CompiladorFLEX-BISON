@@ -89,16 +89,51 @@ char * desapilarOperador() {
 }
 
 void generarAssembler() {
-    FILE * fp;
-    fp = fopen("instrucciones.asm", "w");
-    if (fp == NULL) {
+    if (generarHeader()) {
+        printf("Error al generar el header\n");
         exit(1);
     }
-    generarInstrucciones(fp);
-    fclose(fp);   
+    if (generarInstrucciones()) {
+        printf("Error al generar las instrucciones\n");
+        exit(1);
+    }
+    /*if (generarData()) {
+		printf("Error al generar la data\n");
+		exit(1);
+	}*/
+    if (generarFooter()) {
+		printf("Error al generar el footer\n");
+		exit(1);
+	}
+    if (ensamblar()) {
+		printf("Error al ensamblar el archivo final\n");
+		exit(1);
+    }
 }
 
-void generarInstrucciones(FILE * fp) {
+int generarHeader() {
+	FILE * fp = fopen("./assembler/header", "w");
+	if (fp == NULL) {
+		return 1;
+	}
+
+	fprintf(fp, "INCLUDE macros2.asm\n");
+    fprintf(fp, "INCLUDE number.asm\n");
+    fprintf(fp, ".MODEL LARGE\n");
+    fprintf(fp, ".386\n");
+    fprintf(fp, ".STACK 200h\n"); 
+    fclose(fp);
+    return 0;
+}
+
+int generarInstrucciones() {
+    FILE * fp;
+    
+    fp = fopen("./assembler/instrucciones", "w");
+    if (fp == NULL) {
+        return 1;
+    }
+
     char * op1;
     char * op2;
     int i;
@@ -154,6 +189,29 @@ void generarInstrucciones(FILE * fp) {
             apilarOperador(dato);
         }
     }
+    fclose(fp);
+    return 0;
+}
+
+int generarData() {
+    return 0;
+}
+
+int generarFooter() {
+    FILE * fp = fopen("./assembler/footer.txt", "w");
+	if (fp == NULL) {
+		return 1;
+	}
+    fprintf(fp, "\tffree\n");
+	fprintf(fp, "\tmov ax, 4c00h\n");
+    fprintf(fp, "\tint 21h\n");
+    fprintf(fp, "\tEnd START\n"); 
+    fclose(fp);
+    return 0;
+}
+
+int ensamblar() {
+    return 0;
 }
 
 void pedirAux(char * aux) {

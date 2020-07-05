@@ -43,7 +43,11 @@ void insertarTablaSimbolos(char *, int, char *, char *);
 void mostrarTablaSimbolos();
 
 void generarAssembler();
-void generarInstrucciones(FILE *);
+int generarHeader();
+int generarInstrucciones();
+int generarData();
+int generarFooter();
+int ensamblar();
 
 void pedirAux(char *);
 
