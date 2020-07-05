@@ -37,9 +37,8 @@ FILE  *yyin;
 
 S : 
 	PROG { 
-		mostrarPolaca(); 
-		mostrarTablaSimbolos(); 
-		generarAssembler();  
+		generarIntermedia();
+		generarAssembler();
 		printf("COMPILACION OK!\n"); 
 	};
 PROG:

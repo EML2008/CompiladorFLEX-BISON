@@ -22,6 +22,7 @@ int posicion = -1;
 
 int esEscritura = 0;
 int esLectura = 0;
+
 void insertarPolaca(char * dato, int tipo) {
 	t_polaca tmp;
 	strcpy(tmp.dato, dato);
@@ -45,6 +46,20 @@ void mostrarPolaca() {
 	for(i = 0; i < posActualPolaca ; i++) {
 		printf("POS. %d, DATO %s, TIPO %d\n", i, polaca[i].dato, polaca[i].tipoDato);
 	}
+}
+
+void generarIntermedia() {
+    FILE * fp = fopen("intermedia.txt", "w");
+    if (fp == NULL) {
+        printf("Error al generar archivo de intermedia\n");
+        exit(1);
+    }
+
+    int i;
+	for(i = 0; i < posActualPolaca ; i++) {
+		fprintf(fp, "%s\n", polaca[i].dato);
+	}
+    fclose(fp);
 }
 
 int adelantarPosicionEnPolaca() {

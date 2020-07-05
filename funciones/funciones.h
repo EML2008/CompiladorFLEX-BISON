@@ -39,6 +39,8 @@ void insertarPolacaEnPosicion(char *, int , int);
 int adelantarPosicionEnPolaca();
 void mostrarPolaca();
 
+void generarIntermedia();
+
 void insertarTablaSimbolos(char *, int, char *, char *);
 void mostrarTablaSimbolos();
 
