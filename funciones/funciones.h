@@ -8,6 +8,13 @@
 #define T_FLOAT 2
 #define T_STRING 3
 
+#define MAS "+"
+#define IGUAL "="
+#define CMP "CMP"
+#define SALTO_POR_DISTINTO "JNE"
+#define LEER "READ"
+#define ESCRIBIR "WRITE"
+
 typedef struct {
 	int tipoDato;
 	char dato[100];
@@ -37,3 +44,4 @@ void mostrarTablaSimbolos();
 
 void generarAssembler();
 void generarInstrucciones(FILE *);
+void pedirAux(char *);

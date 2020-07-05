@@ -57,25 +57,26 @@ READ:
 	};
 ASIG:
 	id asigna CONTAR {
-			insertarPolaca($1, T_INTEGER);
 			insertarPolaca("@CANTREP", T_INTEGER);
+			insertarPolaca($1, T_INTEGER);
 			insertarPolaca("=", T_NONE);
 
 			printf("ASIG -> id asigna CONTAR\n"); 
 		};
 CONTAR:
+
 	contar para cte { 
 		insertarTablaSimbolos("@PIVOT", T_INTEGER, "", "");
-		insertarPolaca("@PIVOT", T_INTEGER);
 		insertarPolaca($3, T_INTEGER);
+		insertarPolaca("@PIVOT", T_INTEGER);
 		insertarPolaca("=", T_NONE);
 	} pyc ca LISTA cc parc { printf("CONTAR -> contar para cte pyc ca LISTA cc parc\n"); };
 LISTA:
 	cte	{ 
 			insertarTablaSimbolos("@CANTREP", T_INTEGER, "0", "");
 
-			insertarPolaca("@CANTREP", T_INTEGER);
 			insertarPolaca("0", T_INTEGER);
+			insertarPolaca("@CANTREP", T_INTEGER);
 			insertarPolaca("=", T_NONE);
 
 			insertarPolaca($1, T_INTEGER);
@@ -84,9 +85,9 @@ LISTA:
 			insertarPolaca("JNE", T_NONE);
 			apilarPosicion(adelantarPosicionEnPolaca());
 			insertarPolaca("@CANTREP", T_INTEGER);
-			insertarPolaca("@CANTREP", T_INTEGER);
 			insertarPolaca("1", T_INTEGER);
 			insertarPolaca("+", T_NONE);
+			insertarPolaca("@CANTREP", T_INTEGER);
 			insertarPolaca("=", T_NONE);
 			char temp[10];
 			insertarPolacaEnPosicion(itoa(getPosActualPolaca(), temp, 10), T_INTEGER, desapilarPosicion());
@@ -101,9 +102,9 @@ LISTA:
 						insertarPolaca("JNE", T_NONE);
 						apilarPosicion(adelantarPosicionEnPolaca());
 						insertarPolaca("@CANTREP", T_INTEGER);
-						insertarPolaca("@CANTREP", T_INTEGER);
 						insertarPolaca("1", T_INTEGER);
 						insertarPolaca("+", T_NONE);
+						insertarPolaca("@CANTREP", T_INTEGER);
 						insertarPolaca("=", T_NONE);
 						char temp[10];
 						insertarPolacaEnPosicion(itoa(getPosActualPolaca(), temp, 10), T_INTEGER, desapilarPosicion());

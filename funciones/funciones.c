@@ -12,6 +12,7 @@ int posActualPilaOperandos = 0;
 int posActualPolaca = 0;
 int posActualTablaSimbolos = 0;
 
+int numeroAuxiliar = 0;
 
 void insertarPolaca(char * dato, int tipo) {
 	t_polaca tmp;
@@ -81,7 +82,7 @@ char * desapilarOperador() {
 
 void generarAssembler() {
     FILE * fp;
-    fp = fopen("Instrucciones.asm", "wt");
+    fp = fopen("instrucciones.asm", "w");
     if (fp == NULL) {
         exit(1);
     }
@@ -90,9 +91,50 @@ void generarAssembler() {
 }
 
 void generarInstrucciones(FILE * fp) {
+    char * op1;
+    char * op2;
+    printf("Llegue a generarInstrucciones\n");
     int i;
     for (i = 0; i < getPosActualPolaca(); i++) {
         char * dato = polaca[i].dato;
-        
+        printf("El tipo de dato es %s\n", dato);
+        if (strcmp(dato, MAS) == 0) {
+            printf("Entre por +\n");
+            op1 = desapilarOperador();
+            op2 = desapilarOperador();
+            fprintf(fp, "fld %s\n", op1);
+            fprintf(fp, "fld %s\n", op2);
+            fprintf(fp, "fadd\n");
+            char aux[20];
+            pedirAux(aux);
+            fprintf(fp, "fstp %s\n", aux);
+            apilarOperador(aux);
+        } else if (strcmp(dato, IGUAL) == 0) {
+            op1 = desapilarOperador();
+            op2 = desapilarOperador();
+            fprintf(fp, "fld %s\n", op2);
+            fprintf(fp, "fstp %s\n", op1);
+        } else if (strcmp(dato, CMP) == 0) {
+            op1 = desapilarOperador();
+            op2 = desapilarOperador();
+            fprintf(fp, "fld %s\n", op1);
+            fprintf(fp, "fld %s\n", op2);   
+            fprintf(fp, "fcom\n");
+            fprintf(fp, "fstsw ax\n");
+            fprintf(fp, "sahf\n");
+        } else if (strcmp(dato, SALTO_POR_DISTINTO) == 0) {
+            
+        } else if (strcmp(dato, LEER) == 0) {
+        } else if (strcmp(dato, ESCRIBIR) == 0) {
+        } else {
+            printf("Apilo operador!\n");
+            apilarOperador(dato);
+        }
     }
 }
+
+void pedirAux(char * aux) {
+    sprintf(aux, "@aux%d", numeroAuxiliar++);
+    insertarTablaSimbolos(aux, T_INTEGER, "", "");
+}
+
