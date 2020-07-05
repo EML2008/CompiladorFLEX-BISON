@@ -33,18 +33,21 @@ ID			{LETRA}({LETRA}|{DIGITO})*
 {ID} { 
     yylval.str_val = strdup(yytext); 
     printf("TOKEN ID ---> %s (%s)\n", yytext, yylval.str_val);
+    insertarTablaSimbolos(yylval.str_val, T_ID, "?", 0);
     return id; 
 }
 
 {CTE} {
     yylval.str_val = strdup(yytext);
     printf("TOKEN CTE ---> %s (%s)\n", yytext, yylval.str_val);
+    insertarTablaSimbolos(yylval.str_val, T_CTE_INTEGER, yylval.str_val, 0);
     return cte;
 }
 
 {CTE_S}	{ 
     yylval.str_val = strdup(yytext); 
     printf("TOKEN CTE_S ---> %s (%s)\n", yytext, yylval.str_val);
+    insertarTablaSimbolos(yylval.str_val, T_CTE_STRING, yylval.str_val, strlen(yylval.str_val));
     return cte_s;
 }
 

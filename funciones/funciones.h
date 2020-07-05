@@ -7,6 +7,9 @@
 #define T_INTEGER 1
 #define T_FLOAT 2
 #define T_STRING 3
+#define T_ID 4
+#define T_CTE_INTEGER 5
+#define T_CTE_STRING 6
 
 #define MAS "+"
 #define IGUAL "="
@@ -24,7 +27,7 @@ typedef struct {
 	char nombre[100];
 	int tipo;
 	char dato[100];
-	char longitud[10];
+	int longitud;
 }t_simbolo;
 
 int verTopeDePilaPosiciones();
@@ -41,7 +44,7 @@ void mostrarPolaca();
 
 void generarIntermedia();
 
-void insertarTablaSimbolos(char *, int, char *, char *);
+void insertarTablaSimbolos(char *, int, char *, int);
 void mostrarTablaSimbolos();
 
 void generarAssembler();

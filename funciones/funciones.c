@@ -66,12 +66,12 @@ int adelantarPosicionEnPolaca() {
 	return posActualPolaca++;
 }
 
-void insertarTablaSimbolos(char * nombre, int tipo, char * dato, char * longitud) {
+void insertarTablaSimbolos(char * nombre, int tipo, char * dato, int longitud) {
 	t_simbolo tmp;
 	strcpy(tmp.nombre, nombre);
 	tmp.tipo = tipo;
 	strcpy(tmp.dato, dato);
-	strcpy(tmp.longitud, longitud);
+	tmp.longitud = longitud;
 	tablaSimbolos[posActualTablaSimbolos++] = tmp;
 }
 
@@ -112,10 +112,10 @@ void generarAssembler() {
         printf("Error al generar las instrucciones\n");
         exit(1);
     }
-    /*if (generarData()) {
+    if (generarData()) {
 		printf("Error al generar la data\n");
 		exit(1);
-	}*/
+	}
     if (generarFooter()) {
 		printf("Error al generar el footer\n");
 		exit(1);
@@ -209,11 +209,31 @@ int generarInstrucciones() {
 }
 
 int generarData() {
+    FILE * fp = fopen("./assembler/data", "w");
+	if (fp == NULL) {
+		return 1;
+	}
+
+	fprintf(fp, "\t.DATA\n");    
+    fprintf(fp, "\tTRUE equ 1\n");
+    fprintf(fp, "\tFALSE equ 0\n");
+    fprintf(fp, "\tMAXTEXTSIZE equ %d\n", 200);
+
+    int i;
+    for (i = 0; i < posActualTablaSimbolos; i++) {
+        if (tablaSimbolos[i].tipo == T_CTE_STRING)
+            fprintf(fp, "%-32s\tdb\t%s,'$', %d dup (?)\n", tablaSimbolos[i].nombre, tablaSimbolos[i].dato, tablaSimbolos[i].longitud);
+        else
+            fprintf(fp, "%-32s\tdd\t%s\n", tablaSimbolos[i].nombre, tablaSimbolos[i].dato);
+    }
+    fprintf(fp, "\n.CODE\n");
+    fclose(fp);
+    
     return 0;
 }
 
 int generarFooter() {
-    FILE * fp = fopen("./assembler/footer.txt", "w");
+    FILE * fp = fopen("./assembler/footer", "w");
 	if (fp == NULL) {
 		return 1;
 	}
@@ -231,7 +251,7 @@ int ensamblar() {
 
 void pedirAux(char * aux) {
     sprintf(aux, "@aux%d", numeroAuxiliar++);
-    insertarTablaSimbolos(aux, T_INTEGER, "", "");
+    insertarTablaSimbolos(aux, T_INTEGER, "?", 0);
 }
 
 void pedirEtiqueta() {
