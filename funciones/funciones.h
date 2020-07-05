@@ -53,6 +53,7 @@ int generarInstrucciones();
 int generarData();
 int generarFooter();
 int ensamblar();
+int unirArchivo(FILE *, char *, char *);
 
 void pedirAux(char *);
 

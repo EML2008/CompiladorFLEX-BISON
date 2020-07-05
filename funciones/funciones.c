@@ -246,6 +246,28 @@ int generarFooter() {
 }
 
 int ensamblar() {
+    FILE * fp = fopen("./assembler/Final.asm", "w");
+    char buffer[100];
+    if (fp == NULL)	
+		return 1;
+    if(unirArchivo(fp, "./assembler/header", buffer) ||
+    unirArchivo(fp, "./assembler/data", buffer) ||
+    unirArchivo(fp, "./assembler/instrucciones", buffer) ||
+    unirArchivo(fp, "./assembler/footer", buffer))
+		return 1;
+    fclose(fp);
+    return 0;
+}
+
+int unirArchivo(FILE * fp, char * nombre, char * buffer){
+    FILE * file = fopen( nombre, "r");
+	if (file == NULL) {
+		printf("Error al abrir el archivo %s\n", nombre);
+		return 1;
+	}
+    while(fgets(buffer, sizeof(buffer), file))
+        fprintf(fp, "%s", buffer);
+    fclose(file);
     return 0;
 }
 
