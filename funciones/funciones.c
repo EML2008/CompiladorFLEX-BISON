@@ -266,7 +266,7 @@ int generarFooter() {
 }
 
 int ensamblar() {
-    FILE * fp = fopen("./assembler/Final.asm", "w");
+    FILE * fp = fopen("Final.asm", "w");
     char buffer[100];
     if (fp == NULL)	
 		return 1;

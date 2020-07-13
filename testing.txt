@@ -1,0 +1,5 @@
+WRITE "Ingrese un valor pivot del cero al nueve: "
+READ pivot
+resul = contar ( pivot ; [3,8,4,6,5,5,0,4] )
+WRITE "La cantidad es: "
+WRITE resul
